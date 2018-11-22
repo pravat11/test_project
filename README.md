@@ -1,1 +1,1 @@
-# test_project
+# Test repository for javascript learning.
