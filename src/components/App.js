@@ -8,7 +8,8 @@ class App extends Component {
     super();
 
     this.state = {
-      todos: []
+      todos: [],
+      isShowingTodoForm: false
     };
   }
 
@@ -16,14 +17,28 @@ class App extends Component {
     this.setState({ todos: this.state.todos.concat(todoText) });
   };
 
+  removeTodo = todoText => {
+    this.setState({ todos: this.state.todos.filter(todo => todo !== todoText) });
+  };
+
+  toggleTodoForm = () => {
+    this.setState({ isShowingTodoForm: !this.state.isShowingTodoForm });
+  };
+
   render() {
     return (
       <div className="container">
-        <AddTodoForm saveTodo={this.saveTodo} />
-        <TodoList todos={this.state.todos} />
+        <h1>My todos</h1>
+        <button className="add-button" onClick={this.toggleTodoForm}>
+          Add
+        </button>
+        {this.state.isShowingTodoForm ? (
+          <AddTodoForm saveTodo={this.saveTodo} toggleTodoForm={this.toggleTodoForm} />
+        ) : (
+          <TodoList todos={this.state.todos} removeTodo={this.removeTodo} />
+        )}
       </div>
     );
   }
 }
-
 export default App;

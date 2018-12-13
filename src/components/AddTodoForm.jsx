@@ -13,12 +13,21 @@ class AddTodoForm extends React.Component {
     this.setState({ todoText: e.target.value });
   };
 
+  handleSubmit = e => {
+    e.preventDefault();
+    this.props.saveTodo(this.state.todoText);
+    this.props.toggleTodoForm();
+  };
+
   render() {
     return (
-      <div className="form-container">
+      <form className="form-container" onSubmit={this.handleSubmit}>
         <input type="text" placeholder="Add todo" value={this.state.todoText} onChange={this.handleInputChange} />
-        <button onClick={() => this.props.saveTodo(this.state.todoText)}>Save</button>
-      </div>
+        <input type="submit" value="Save" className="custom-button" />
+        <button className="custom-button cancel-button" onClick={this.props.toggleTodoForm}>
+          Cancel
+        </button>
+      </form>
     );
   }
 }
