@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React from 'react';
 
 class AddTodoForm extends React.Component {
   constructor() {

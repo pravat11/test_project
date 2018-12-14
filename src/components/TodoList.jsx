@@ -5,12 +5,20 @@ const TodoList = props => {
     <div className="list-wrapper">
       <ul>
         {!props.todos.length && <li>No todos available</li>}
-        {props.todos.map(todoText => {
+        {props.todos.map((todo, index) => {
+          const { text, isCompleted } = todo;
+
+          // Alternative approach although above one is recommended.
+          // const text = todo.text;
+
           return (
-            <li>
-              <span>{todoText}</span>
-              <span className="cross-button" onClick={() => props.removeTodo(todoText)}>
+            <li key={`todo-item-${index}`}>
+              <span className={isCompleted ? 'strike' : ''}>{text}</span>
+              <span className="action-buttons cross-button" onClick={() => props.removeTodo(text)}>
                 &times;
+              </span>
+              <span className="action-buttons complete-button" onClick={() => props.toggleTodoCompletionStatus(text)}>
+                &#10004;
               </span>
             </li>
           );

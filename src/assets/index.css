@@ -49,14 +49,27 @@ li:nth-child(odd) {
   background-color: #009944;
 }
 
-.cross-button {
+.action-buttons {
   position: absolute;
-  right: 10px;
-  font-size: 30px;
   top: 0;
-  color: red;
   bottom: 0;
   cursor: pointer;
+}
+
+.cross-button {
+  color: red;
+  right: 10px;
+  font-size: 30px;
+}
+
+.complete-button {
+  color: blue;
+  right: 35px;
+  font-size: 30px;
+}
+
+.strike {
+  text-decoration: line-through;
 }
 
 input[type='text'] {

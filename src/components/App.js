@@ -1,9 +1,9 @@
-import React, { Component } from 'react';
+import React from 'react';
 
 import TodoList from './TodoList';
 import AddTodoForm from './AddTodoForm';
 
-class App extends Component {
+class App extends React.Component {
   constructor() {
     super();
 
@@ -13,16 +13,43 @@ class App extends Component {
     };
   }
 
-  saveTodo = todoText => {
-    this.setState({ todos: this.state.todos.concat(todoText) });
+  saveTodo = text => {
+    const todoObject = {
+      text,
+      isCompleted: false
+    };
+
+    const todoExistsAlready = this.state.todos.find(todo => todo.text === text);
+
+    if (todoExistsAlready) {
+      alert('Todo already exists');
+      return;
+    }
+
+    this.setState({ todos: this.state.todos.concat(todoObject) });
   };
 
-  removeTodo = todoText => {
-    this.setState({ todos: this.state.todos.filter(todo => todo !== todoText) });
+  removeTodo = text => {
+    this.setState({ todos: this.state.todos.filter(todo => todo.text !== text) });
   };
 
   toggleTodoForm = () => {
     this.setState({ isShowingTodoForm: !this.state.isShowingTodoForm });
+  };
+
+  toggleTodoCompletionStatus = text => {
+    let updatedTodos = this.state.todos.map(todo => {
+      if (todo.text !== text) {
+        return todo;
+      }
+
+      return {
+        ...todo,
+        isCompleted: !todo.isCompleted
+      };
+    });
+
+    this.setState({ todos: updatedTodos });
   };
 
   render() {
@@ -35,7 +62,11 @@ class App extends Component {
         {this.state.isShowingTodoForm ? (
           <AddTodoForm saveTodo={this.saveTodo} toggleTodoForm={this.toggleTodoForm} />
         ) : (
-          <TodoList todos={this.state.todos} removeTodo={this.removeTodo} />
+          <TodoList
+            todos={this.state.todos}
+            removeTodo={this.removeTodo}
+            toggleTodoCompletionStatus={this.toggleTodoCompletionStatus}
+          />
         )}
       </div>
     );
