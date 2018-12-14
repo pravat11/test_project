@@ -105,3 +105,22 @@ input[type='text'] {
 .cancel-button {
   background-color: red;
 }
+
+.tabs-container {
+  padding-bottom: 30px;
+}
+
+.tab-items {
+  float: left;
+  width: 30%;
+  cursor: pointer;
+  background-color: white;
+  margin: 0 6px;
+  text-align: center;
+  padding: 10px 0px;
+  border-radius: 25px;
+}
+
+.tab-items.active {
+  background-color: aquamarine;
+}

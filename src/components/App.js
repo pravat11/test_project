@@ -1,7 +1,9 @@
 import React from 'react';
 
 import TodoList from './TodoList';
+import TodoTabs from './TodoTabs';
 import AddTodoForm from './AddTodoForm';
+import VisibilityFilters from '../maps/VisibilityFilters';
 
 class App extends React.Component {
   constructor() {
@@ -9,9 +11,20 @@ class App extends React.Component {
 
     this.state = {
       todos: [],
-      isShowingTodoForm: false
+      isShowingTodoForm: false,
+      visibilityFilter: VisibilityFilters.ALL
     };
   }
+
+  setVisibilityFilter = visibilityFilter => {
+    const filterExists = Object.keys(VisibilityFilters).find(filter => VisibilityFilters[filter] === visibilityFilter);
+
+    if (!filterExists) {
+      return;
+    }
+
+    this.setState({ visibilityFilter });
+  };
 
   saveTodo = text => {
     const todoObject = {
@@ -62,11 +75,14 @@ class App extends React.Component {
         {this.state.isShowingTodoForm ? (
           <AddTodoForm saveTodo={this.saveTodo} toggleTodoForm={this.toggleTodoForm} />
         ) : (
-          <TodoList
-            todos={this.state.todos}
-            removeTodo={this.removeTodo}
-            toggleTodoCompletionStatus={this.toggleTodoCompletionStatus}
-          />
+          <React.Fragment>
+            <TodoTabs visibilityFilter={this.state.visibilityFilter} setVisibilityFilter={this.setVisibilityFilter} />
+            <TodoList
+              todos={this.state.todos}
+              removeTodo={this.removeTodo}
+              toggleTodoCompletionStatus={this.toggleTodoCompletionStatus}
+            />
+          </React.Fragment>
         )}
       </div>
     );
