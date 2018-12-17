@@ -80,6 +80,7 @@ class App extends React.Component {
             <TodoList
               todos={this.state.todos}
               removeTodo={this.removeTodo}
+              visibilityFilter={this.state.visibilityFilter}
               toggleTodoCompletionStatus={this.toggleTodoCompletionStatus}
             />
           </React.Fragment>
