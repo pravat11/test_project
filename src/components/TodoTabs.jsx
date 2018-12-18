@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 
 import VisibilityFilters from '..//maps/VisibilityFilters';
 
@@ -24,5 +25,10 @@ const TodoTabs = props => (
     </div>
   </div>
 );
+
+TodoTabs.propTypes = {
+  visibilityFilter: PropTypes.string.isRequired,
+  setVisibilityFilter: PropTypes.func.isRequired
+}
 
 export default TodoTabs;
