@@ -11,10 +11,19 @@ class App extends React.Component {
 
     this.state = {
       todos: [],
+      editingTodo: null,
       isShowingTodoForm: false,
       visibilityFilter: VisibilityFilters.ALL
     };
   }
+
+  setEditTodo = todo => {
+    this.setState({ editingTodo: todo, isShowingTodoForm: true });
+  };
+
+  resetEditMode = () => {
+    this.setState({ editingTodo: null });
+  };
 
   setVisibilityFilter = visibilityFilter => {
     const filterExists = Object.keys(VisibilityFilters).find(filter => VisibilityFilters[filter] === visibilityFilter);
@@ -40,6 +49,21 @@ class App extends React.Component {
     }
 
     this.setState({ todos: this.state.todos.concat(todoObject) });
+  };
+
+  editTodo = text => {
+    const updatedTodos = this.state.todos.map(todo => {
+      if (todo.text === this.state.editingTodo.text) {
+        return {
+          ...todo,
+          text
+        };
+      }
+
+      return todo;
+    });
+
+    this.setState({ todos: updatedTodos });
   };
 
   removeTodo = text => {
@@ -70,16 +94,23 @@ class App extends React.Component {
       <div className="container">
         <h1>My todos</h1>
         <button className="add-button" onClick={this.toggleTodoForm}>
-          Add
+          +
         </button>
         {this.state.isShowingTodoForm ? (
-          <AddTodoForm saveTodo={this.saveTodo} toggleTodoForm={this.toggleTodoForm} />
+          <AddTodoForm
+            saveTodo={this.saveTodo}
+            editTodo={this.editTodo}
+            resetEditMode={this.resetEditMode}
+            toggleTodoForm={this.toggleTodoForm}
+            editingTodo={this.state.editingTodo}
+          />
         ) : (
           <React.Fragment>
             <TodoTabs visibilityFilter={this.state.visibilityFilter} setVisibilityFilter={this.setVisibilityFilter} />
             <TodoList
               todos={this.state.todos}
               removeTodo={this.removeTodo}
+              setEditTodo={this.setEditTodo}
               visibilityFilter={this.state.visibilityFilter}
               toggleTodoCompletionStatus={this.toggleTodoCompletionStatus}
             />

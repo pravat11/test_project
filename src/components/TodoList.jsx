@@ -29,7 +29,14 @@ const TodoList = props => {
 
           return (
             <li key={`todo-item-${index}`}>
-              <span className={isCompleted ? 'strike' : ''}>{text}</span>
+              <span
+                className={isCompleted ? 'todo-text strike' : 'todo-text'}
+                onClick={() => {
+                  props.setEditTodo(todo);
+                }}
+              >
+                {text}
+              </span>
               <span className="action-buttons cross-button" onClick={() => props.removeTodo(text)}>
                 &times;
               </span>

@@ -9,13 +9,25 @@ class AddTodoForm extends React.Component {
     };
   }
 
+  componentDidMount() {
+    if (this.props.editingTodo) {
+      this.setState({ todoText: this.props.editingTodo.text });
+    }
+  }
+
   handleInputChange = e => {
     this.setState({ todoText: e.target.value });
   };
 
   handleSubmit = e => {
     e.preventDefault();
-    this.props.saveTodo(this.state.todoText);
+    if (this.props.editingTodo) {
+      this.props.editTodo(this.state.todoText);
+      this.props.resetEditMode();
+    } else {
+      this.props.saveTodo(this.state.todoText);
+    }
+    
     this.props.toggleTodoForm();
   };
 
