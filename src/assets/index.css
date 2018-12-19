@@ -105,6 +105,17 @@ input[type='text'] {
   cursor: pointer;
 }
 
+.navigate-button {
+  position: absolute;
+  top: 10px;
+  left: 10px;
+  border: none;
+  background-color: inherit;
+  padding: 0 10px;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
 .add-button:hover {
   color: #444;
 }
