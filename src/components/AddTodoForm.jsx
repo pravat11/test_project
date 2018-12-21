@@ -1,5 +1,7 @@
 import React from 'react';
 
+import withTextState from './hoc/withTextState';
+
 class AddTodoForm extends React.Component {
   constructor() {
     super();
@@ -16,6 +18,7 @@ class AddTodoForm extends React.Component {
   }
 
   handleInputChange = e => {
+    this.props.handlerFromHoc(e);
     this.setState({ todoText: e.target.value });
   };
 
@@ -27,7 +30,7 @@ class AddTodoForm extends React.Component {
     } else {
       this.props.saveTodo(this.state.todoText);
     }
-    
+
     this.props.toggleTodoForm();
   };
 
@@ -44,4 +47,4 @@ class AddTodoForm extends React.Component {
   }
 }
 
-export default AddTodoForm;
+export default withTextState(true)('Hello')(AddTodoForm);
