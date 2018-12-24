@@ -1,9 +1,11 @@
 import React from 'react';
-import { Link, withRouter } from 'react-router-dom';
+import { connect } from 'react-redux';
+import { withRouter } from 'react-router-dom';
 
 import TodoList from './TodoList';
 import TodoTabs from './TodoTabs';
 import AddTodoForm from './AddTodoForm';
+import { initializeTodo } from '../actions/init';
 import VisibilityFilters from '../maps/VisibilityFilters';
 
 class App extends React.Component {
@@ -16,6 +18,10 @@ class App extends React.Component {
       isShowingTodoForm: false,
       visibilityFilter: VisibilityFilters.ALL
     };
+  }
+
+  componentDidMount() {
+    this.props.initializeTodo(['some initial todo']);
   }
 
   setEditTodo = todo => {
@@ -98,7 +104,9 @@ class App extends React.Component {
     return (
       <div className="container">
         <h1>My todos</h1>
-        <button className="navigate-button" onClick={this.gotoSomething}>Goto some other app</button>
+        <button className="navigate-button" onClick={this.gotoSomething}>
+          Goto some other app
+        </button>
         {this.state.isShowingTodoForm ? (
           <AddTodoForm
             saveTodo={this.saveTodo}
@@ -126,4 +134,18 @@ class App extends React.Component {
     );
   }
 }
-export default withRouter(App);
+
+const mapStateToProps = state => ({
+  todos: state.todos
+});
+
+const mapDispatchToProps = {
+  initializeTodo
+};
+
+export default withRouter(
+  connect(
+    mapStateToProps,
+    mapDispatchToProps
+  )(App)
+);
