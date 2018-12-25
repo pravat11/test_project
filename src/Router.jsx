@@ -1,7 +1,7 @@
 import React from 'react';
 import { BrowserRouter, Route, Switch, Redirect } from 'react-router-dom';
 
-import TodoReduxApp from './todo-redux/components/TodoApp';
+import TodoReduxApp from './todo-redux/components';
 import TodoReactApp from './todo-react/components/TodoApp';
 
 const App = () => (
