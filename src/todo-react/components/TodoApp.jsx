@@ -1,11 +1,9 @@
 import React from 'react';
-import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
 
 import TodoList from './TodoList';
 import TodoTabs from './TodoTabs';
 import AddTodoForm from './AddTodoForm';
-import { initializeTodo } from '../actions/init';
 import VisibilityFilters from '../maps/VisibilityFilters';
 
 class App extends React.Component {
@@ -18,10 +16,6 @@ class App extends React.Component {
       isShowingTodoForm: false,
       visibilityFilter: VisibilityFilters.ALL
     };
-  }
-
-  componentDidMount() {
-    this.props.initializeTodo(['some initial todo']);
   }
 
   setEditTodo = todo => {
@@ -135,17 +129,4 @@ class App extends React.Component {
   }
 }
 
-const mapStateToProps = state => ({
-  todos: state.todos
-});
-
-const mapDispatchToProps = {
-  initializeTodo
-};
-
-export default withRouter(
-  connect(
-    mapStateToProps,
-    mapDispatchToProps
-  )(App)
-);
+export default withRouter(App);
