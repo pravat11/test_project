@@ -1,4 +1,5 @@
 import React from 'react';
+import { connect } from 'react-redux';
 
 const TodoList = props => {
   // const todosToDisplay =
@@ -17,7 +18,7 @@ const TodoList = props => {
 
   const emptyStateText = 'No todos available';
 
-  const todosToDisplay = [];
+  const todosToDisplay = props.todos;
 
   return (
     <div className="list-wrapper">
@@ -44,4 +45,10 @@ const TodoList = props => {
   );
 };
 
-export default TodoList;
+const mapStateToProps = state => ({
+  todos: state.data.todos
+});
+
+const enhance = connect(mapStateToProps);
+
+export default enhance(TodoList);

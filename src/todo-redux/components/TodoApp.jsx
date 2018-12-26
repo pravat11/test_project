@@ -9,10 +9,7 @@ class App extends React.Component {
     return (
       <div className="container">
         <h1>My todos</h1>
-        <button className="navigate-button">Goto some other app</button>
-
         <AddTodoForm />
-
         <React.Fragment>
           <button className="add-button">+</button>
           <TodoTabs />
