@@ -3,13 +3,8 @@ import React from 'react';
 import TodoList from './TodoList';
 import TodoTabs from './TodoTabs';
 import AddTodoForm from './AddTodoForm';
-import VisibilityFilters from '../maps/VisibilityFilters';
 
 class App extends React.Component {
-  constructor() {
-    super();
-  }
-
   render() {
     return (
       <div className="container">

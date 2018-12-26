@@ -1,7 +1,5 @@
 import React from 'react';
 
-import VisibilityFilters from '../maps/VisibilityFilters';
-
 const TodoList = props => {
   // const todosToDisplay =
   //   props.visibilityFilter === VisibilityFilters.ACTIVE

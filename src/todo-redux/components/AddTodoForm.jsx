@@ -1,10 +1,6 @@
 import React from 'react';
 
 class AddTodoForm extends React.Component {
-  constructor() {
-    super();
-  }
-
   render() {
     return (
       <form className="form-container">

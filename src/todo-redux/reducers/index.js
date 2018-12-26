@@ -29,5 +29,8 @@ export default function rootReducer(state = INITIAL_STATE, action) {
           }
         ]
       };
+
+    default:
+      return state;
   }
 }
