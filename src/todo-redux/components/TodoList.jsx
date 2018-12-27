@@ -1,30 +1,22 @@
 import React from 'react';
 import { connect } from 'react-redux';
 
+import { getFilteredTodoList } from '../selectors/todo';
+import VisibilityFilters from '../maps/VisibilityFilters';
+
 const TodoList = props => {
-  // const todosToDisplay =
-  //   props.visibilityFilter === VisibilityFilters.ACTIVE
-  //     ? props.todos.filter(todo => !todo.isCompleted)
-  //     : props.visibilityFilter === VisibilityFilters.COMPLETED
-  //     ? props.todos.filter(todo => todo.isCompleted)
-  //     : props.todos;
-
-  // const emptyStateText =
-  //   props.visibilityFilter === VisibilityFilters.ACTIVE
-  //     ? 'No active todos'
-  //     : props.visibilityFilter === VisibilityFilters.COMPLETED
-  //     ? 'No completed todos'
-  //     : 'No todos available';
-
-  const emptyStateText = 'No todos available';
-
-  const todosToDisplay = props.todos;
+  const emptyStateText =
+    props.visibilityFilter === VisibilityFilters.ACTIVE
+      ? 'No active todos'
+      : props.visibilityFilter === VisibilityFilters.COMPLETED
+      ? 'No completed todos'
+      : 'No todos available';
 
   return (
     <div className="list-wrapper">
       <ul>
-        {!todosToDisplay.length && <li>{emptyStateText}</li>}
-        {todosToDisplay.map((todo, index) => {
+        {!props.todos.length && <li>{emptyStateText}</li>}
+        {props.todos.map((todo, index) => {
           const { text, isCompleted } = todo;
 
           // Alternative approach although above one is recommended.
@@ -46,7 +38,8 @@ const TodoList = props => {
 };
 
 const mapStateToProps = state => ({
-  todos: state.data.todos
+  todos: getFilteredTodoList(state),
+  visibilityFilter: state.ui.visibilityFilter
 });
 
 const enhance = connect(mapStateToProps);
