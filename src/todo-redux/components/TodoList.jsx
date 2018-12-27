@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 
 import { getFilteredTodoList } from '../selectors/todo';
 import VisibilityFilters from '../maps/VisibilityFilters';
+import { removeTodo, toggleTodoCompletionStatus } from '../actions/todo';
 import { setEditingMode, toggleTodoFormShownStatus } from '../actions/ui';
 
 const TodoList = props => {
@@ -18,13 +19,13 @@ const TodoList = props => {
       <ul>
         {!props.todos.length && <li>{emptyStateText}</li>}
         {props.todos.map((todo, index) => {
-          const { text, isCompleted } = todo;
+          const { id, text, isCompleted } = todo;
 
           // Alternative approach although above one is recommended.
           // const text = todo.text;
 
           return (
-            <li key={`todo-item-${index}`}>
+            <li key={id}>
               <span
                 className={isCompleted ? 'todo-text strike' : 'todo-text'}
                 onClick={() => {
@@ -34,8 +35,10 @@ const TodoList = props => {
               >
                 {text}
               </span>
-              <span className="action-buttons cross-button">&times;</span>
-              <span className="action-buttons complete-button">
+              <span className="action-buttons cross-button" onClick={() => props.removeTodo(id)}>
+                &times;
+              </span>
+              <span className="action-buttons complete-button" onClick={() => props.toggleTodoCompletionStatus(id)}>
                 {isCompleted ? <React.Fragment>&#8630;</React.Fragment> : <React.Fragment>&#10004;</React.Fragment>}
               </span>
             </li>
@@ -52,8 +55,10 @@ const mapStateToProps = state => ({
 });
 
 const mapDispatchToProps = {
+  removeTodo,
   setEditingMode,
-  toggleTodoFormShownStatus
+  toggleTodoFormShownStatus,
+  toggleTodoCompletionStatus
 };
 
 const enhance = connect(
