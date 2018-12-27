@@ -1,6 +1,7 @@
 import VisibilityFilters from '../maps/VisibilityFilters';
 
 const INITIAL_STATE = {
+  editingTodo: null,
   isShowingTodoForm: false,
   visibilityFilter: VisibilityFilters.ALL
 };
@@ -17,6 +18,18 @@ export default function uiReducer(state = INITIAL_STATE, action) {
       return {
         ...state,
         visibilityFilter: action.payload
+      };
+
+    case 'SET_EDITING_MODE':
+      return {
+        ...state,
+        editingTodo: action.payload
+      };
+
+    case 'RESET_EDITING_MODE':
+      return {
+        ...state,
+        editingTodo: INITIAL_STATE.editingTodo
       };
 
     default:

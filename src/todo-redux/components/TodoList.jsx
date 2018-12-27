@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 
 import { getFilteredTodoList } from '../selectors/todo';
 import VisibilityFilters from '../maps/VisibilityFilters';
+import { setEditingMode, toggleTodoFormShownStatus } from '../actions/ui';
 
 const TodoList = props => {
   const emptyStateText =
@@ -24,7 +25,15 @@ const TodoList = props => {
 
           return (
             <li key={`todo-item-${index}`}>
-              <span className={isCompleted ? 'todo-text strike' : 'todo-text'}>{text}</span>
+              <span
+                className={isCompleted ? 'todo-text strike' : 'todo-text'}
+                onClick={() => {
+                  props.setEditingMode(todo);
+                  props.toggleTodoFormShownStatus();
+                }}
+              >
+                {text}
+              </span>
               <span className="action-buttons cross-button">&times;</span>
               <span className="action-buttons complete-button">
                 {isCompleted ? <React.Fragment>&#8630;</React.Fragment> : <React.Fragment>&#10004;</React.Fragment>}
@@ -42,6 +51,14 @@ const mapStateToProps = state => ({
   visibilityFilter: state.ui.visibilityFilter
 });
 
-const enhance = connect(mapStateToProps);
+const mapDispatchToProps = {
+  setEditingMode,
+  toggleTodoFormShownStatus
+};
+
+const enhance = connect(
+  mapStateToProps,
+  mapDispatchToProps
+);
 
 export default enhance(TodoList);

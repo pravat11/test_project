@@ -1,8 +1,8 @@
 import React from 'react';
 import { connect } from 'react-redux';
 
-import { addTodo } from '../actions/todo';
-import { toggleTodoFormShownStatus } from '../actions/ui';
+import { editTodo, addTodo } from '../actions/todo';
+import { resetEditingMode, toggleTodoFormShownStatus } from '../actions/ui';
 
 class AddTodoForm extends React.Component {
   constructor(props) {
@@ -13,13 +13,27 @@ class AddTodoForm extends React.Component {
     };
   }
 
+  componentDidMount() {
+    if (this.props.editingTodo) {
+      this.setState({ text: this.props.editingTodo.text });
+    }
+  }
+
   handleTextChange = e => {
     this.setState({ text: e.target.value });
   };
 
   handleFormSubmit = e => {
     e.preventDefault();
-    this.props.addTodo(this.state.text);
+    const { text } = this.state;
+    const { editingTodo } = this.props;
+
+    if (!editingTodo) {
+      this.props.addTodo(text);
+    } else {
+      this.props.editTodo(editingTodo.id, text);
+      this.props.resetEditingMode();
+    }
     this.props.toggleTodoFormShownStatus();
   };
 
@@ -36,13 +50,19 @@ class AddTodoForm extends React.Component {
   }
 }
 
+const mapStateToProps = state => ({
+  editingTodo: state.ui.editingTodo
+});
+
 const mapDispatchToProps = {
   addTodo,
+  editTodo,
+  resetEditingMode,
   toggleTodoFormShownStatus
 };
 
 const enhance = connect(
-  null,
+  mapStateToProps,
   mapDispatchToProps
 );
 
