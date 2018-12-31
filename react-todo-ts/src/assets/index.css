@@ -1,0 +1,150 @@
+body {
+  margin: 0;
+  padding: 0;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', 'Fira Sans',
+    'Droid Sans', 'Helvetica Neue', sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+h1 {
+  text-align: center;
+  padding: 10px 0;
+}
+
+.container {
+  width: 80%;
+  margin: 0 auto;
+  position: relative;
+  border-radius: 5px;
+  padding-bottom: 15px;
+  background-color: #ccc;
+}
+
+.form-container {
+  padding: 10px;
+  margin: 5px auto;
+  width: 90%;
+}
+
+.list-wrapper {
+  margin: 0 auto;
+  width: 95%;
+}
+
+ul {
+  padding: 0;
+}
+
+li {
+  list-style-type: none;
+  padding: 10px;
+  margin: 10px 0 auto;
+  border-radius: 20px;
+  position: relative;
+  background-color: #fff;
+}
+
+li:nth-child(odd) {
+  background-color: #009944;
+}
+
+.action-buttons {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  cursor: pointer;
+}
+
+.cross-button {
+  color: red;
+  right: 10px;
+  font-size: 30px;
+}
+
+.complete-button {
+  color: blue;
+  right: 35px;
+  font-size: 30px;
+}
+
+.strike {
+  text-decoration: line-through;
+}
+
+input[type='text'] {
+  width: 100%;
+  height: 30px;
+  padding: 4px;
+  outline: none;
+  display: block;
+  border-radius: 5px;
+  border: 1px solid black;
+}
+
+.custom-button {
+  width: 50px;
+  border: none;
+  outline: none;
+  padding: 8px;
+  border-radius: 5px;
+  margin: 8px 5px 0 0;
+  background-color: blue;
+}
+
+.add-button {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  font-size: 40px;
+  font-weight: bolder;
+  border: none;
+  background-color: inherit;
+  padding: 0 10px;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.navigate-button {
+  position: absolute;
+  top: 10px;
+  left: 10px;
+  border: none;
+  background-color: inherit;
+  padding: 0 10px;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.add-button:hover {
+  color: #444;
+}
+
+.cancel-button {
+  background-color: red;
+}
+
+.tabs-container {
+  padding-bottom: 30px;
+  margin: 0 auto;
+  width: 95%;
+}
+
+.tab-items {
+  float: left;
+  width: 30%;
+  cursor: pointer;
+  background-color: white;
+  margin: 0 6px;
+  text-align: center;
+  padding: 10px 0px;
+  border-radius: 25px;
+}
+
+.tab-items.active {
+  background-color: aquamarine;
+}
+
+.todo-text {
+  cursor: pointer;
+}
