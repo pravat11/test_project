@@ -126,6 +126,8 @@ input[type='text'] {
 
 .tabs-container {
   padding-bottom: 30px;
+  margin: 0 auto;
+  width: 95%;
 }
 
 .tab-items {
