@@ -3,9 +3,14 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "classnames": "^2.2.6",
     "react": "^16.7.0",
+    "react-bootstrap": "^0.32.4",
     "react-dom": "^16.7.0",
-    "react-scripts-ts": "3.1.0"
+    "react-redux": "^6.0.0",
+    "react-scripts-ts": "3.1.0",
+    "redux": "^4.0.1",
+    "redux-actions": "^2.6.4"
   },
   "scripts": {
     "start": "react-scripts-ts start",
@@ -14,10 +19,14 @@
     "eject": "react-scripts-ts eject"
   },
   "devDependencies": {
+    "@types/classnames": "^2.2.6",
     "@types/jest": "^23.3.10",
     "@types/node": "^10.12.18",
     "@types/react": "^16.7.18",
+    "@types/react-bootstrap": "^0.32.15",
     "@types/react-dom": "^16.0.11",
+    "@types/react-redux": "^6.0.11",
+    "@types/redux-actions": "^2.3.1",
     "typescript": "^3.2.2"
   }
 }
