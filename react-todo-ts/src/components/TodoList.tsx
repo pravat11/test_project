@@ -1,31 +1,35 @@
 import * as React from 'react';
+import { connect } from 'react-redux';
 
-const TodoList = () => (
+import Todo from 'types/Todo';
+import AppState from 'types/states/AppState';
+
+interface TodoListProps {
+  todos: Todo[];
+}
+
+const TodoList = (props: TodoListProps) => (
   <div className="list-wrapper">
     <ul>
-      <li>
-        <span className="todo-text">Todo text 1</span>
-        <span className="action-buttons cross-button">&times;</span>
-        <span className="action-buttons complete-button">
-          {/* {isCompleted ? <React.Fragment>&#8630;</React.Fragment> : <React.Fragment>&#10004;</React.Fragment>} */}
-        </span>
-      </li>
-      <li>
-        <span className="todo-text">Todo text 2</span>
-        <span className="action-buttons cross-button">&times;</span>
-        <span className="action-buttons complete-button">
-          {/* {isCompleted ? <React.Fragment>&#8630;</React.Fragment> : <React.Fragment>&#10004;</React.Fragment>} */}
-        </span>
-      </li>
-      <li>
-        <span className="todo-text">Todo text 3</span>
-        <span className="action-buttons cross-button">&times;</span>
-        <span className="action-buttons complete-button">
-          {/* {isCompleted ? <React.Fragment>&#8630;</React.Fragment> : <React.Fragment>&#10004;</React.Fragment>} */}
-        </span>
-      </li>
+      {props.todos.map(todo => {
+        return (
+          <li key={todo.id}>
+            <span className="todo-text">{todo.text}</span>
+            <span className="action-buttons cross-button">&times;</span>
+            <span className="action-buttons complete-button">
+              {todo.isCompleted ? <React.Fragment>&#8630;</React.Fragment> : <React.Fragment>&#10004;</React.Fragment>}
+            </span>
+          </li>
+        );
+      })}
     </ul>
   </div>
 );
 
-export default TodoList;
+const mapStateToProps = (state: AppState) => ({
+  todos: state.data.todos
+});
+
+const enhance = connect(mapStateToProps);
+
+export default enhance(TodoList);

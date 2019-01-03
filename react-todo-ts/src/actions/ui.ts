@@ -10,4 +10,4 @@ export interface ToggleTodoFormShownStatusAction {
 
 export type UiActions = ToggleTodoFormShownStatusAction;
 
-export const toggleTodoFormShownStatus = createAction(SET_TODO_FORM_SHOWN_STATUS);
+export const setTodoFormShownStatus = createAction(SET_TODO_FORM_SHOWN_STATUS);
