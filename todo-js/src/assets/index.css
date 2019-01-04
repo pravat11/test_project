@@ -56,6 +56,10 @@ li:nth-child(odd) {
   cursor: pointer;
 }
 
+.mt-sm {
+  margin-top: 10px;
+}
+
 .cross-button {
   color: red;
   right: 10px;
