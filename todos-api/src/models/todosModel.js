@@ -1,6 +1,7 @@
 import camelize from 'camelize';
 
 import connection from '../connection';
+import logger from '../utils/logger';
 
 export async function addTodo(text) {
   const insertData = {
@@ -23,7 +24,9 @@ export async function addTodo(text) {
 }
 
 export async function getTodos() {
+  logger.info('Fetching the list of todos...');
   const todos = await connection.select('*').from('todos');
+  logger.debug('Todos fetched:', todos);
 
   return {
     message: 'List of todos',
@@ -38,6 +41,8 @@ export async function getTodoById(id) {
     .where({ id });
 
   if (!todo) {
+    logger.error(`Couldn't find the requested todo with id ${id}`);
+
     return {
       message: "Couldn't find the requested todo"
     };

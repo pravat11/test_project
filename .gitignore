@@ -1,6 +1,8 @@
 # dependencies
 /node_modules
 
+/todos-api/node_modules
+/todos-api/combined.log
 # production
 /build
 
