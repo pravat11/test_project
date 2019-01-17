@@ -5,6 +5,7 @@ import bodyParser from 'body-parser';
 
 import routes from './src/routes';
 import logger from './src/utils/logger';
+import genericErrorHandler from './src/middlewares/errorHandler';
 
 dotenv.config();
 
@@ -16,6 +17,8 @@ app.use(morgan('tiny'));
 app.use(bodyParser.json());
 
 app.use('/api', routes);
+
+app.use(genericErrorHandler);
 
 app.listen(APP_PORT, err => {
   if (err) {

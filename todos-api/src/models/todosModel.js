@@ -2,6 +2,7 @@ import camelize from 'camelize';
 
 import connection from '../connection';
 import logger from '../utils/logger';
+import NotFoundError from '../utils/NotFoundError';
 
 export async function addTodo(text) {
   const insertData = {
@@ -42,10 +43,7 @@ export async function getTodoById(id) {
 
   if (!todo) {
     logger.error(`Couldn't find the requested todo with id ${id}`);
-
-    return {
-      message: "Couldn't find the requested todo"
-    };
+    throw new NotFoundError(`Couldn't find the requested todo`);
   }
 
   return {
