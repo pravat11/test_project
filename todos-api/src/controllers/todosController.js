@@ -29,10 +29,9 @@ export function getTodo(req, res, next) {
 
 export function updateTodo(req, res, next) {
   const { todoId } = req.params;
-  const { text } = req.body;
 
   todosModel
-    .updateTodo(todoId, text)
+    .updateTodo(todoId, req.body)
     .then(data => res.json(data))
     .catch(err => {
       throw err;

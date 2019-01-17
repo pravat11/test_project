@@ -1,6 +1,6 @@
 import { Router } from 'express';
 
-import { validateAddTodo } from './schemas/todo';
+import { validateAddTodo, validateUpdateTodo } from './schemas/todo';
 import * as todosController from './controllers/todosController';
 const routes = Router();
 
@@ -19,6 +19,6 @@ routes.delete('/todos/:todoId', todosController.deleteTodo);
 
 routes.post('/todo', validateAddTodo, todosController.addTodo);
 
-routes.put('/todo/:todoId', todosController.updateTodo);
+routes.put('/todo/:todoId', validateUpdateTodo, todosController.updateTodo);
 
 export default routes;

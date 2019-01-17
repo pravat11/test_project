@@ -54,10 +54,13 @@ export async function getTodoById(id) {
   };
 }
 
-export async function updateTodo(id, text) {
+export async function updateTodo(id, payload) {
   const updatedId = await connection('todos')
     .where({ id })
-    .update({ text });
+    .update({
+      text: payload.text,
+      is_completed: payload.isCompleted
+    });
 
   const [updatedData] = await connection('todos')
     .select('*')
