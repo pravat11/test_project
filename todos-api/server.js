@@ -1,3 +1,4 @@
+import cors from 'cors';
 import dotenv from 'dotenv';
 import morgan from 'morgan';
 import express from 'express';
@@ -12,6 +13,12 @@ dotenv.config();
 const APP_PORT = 8848;
 
 const app = express();
+
+app.use(
+  cors({
+    origin: 'http://localhost:3000'
+  })
+);
 
 app.use(morgan('tiny'));
 app.use(bodyParser.json());

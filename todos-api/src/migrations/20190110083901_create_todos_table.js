@@ -6,8 +6,8 @@ export function up(knex) {
       .boolean('is_completed')
       .notNull()
       .default(false);
-    table.timestamp('created_at').default(knex.fn.now());
-    table.timestamp('updated_at').default(knex.fn.now());
+    table.string('created_at').default(new Date().toISOString());
+    table.string('updated_at').default(new Date().toISOString());
   });
 }
 
