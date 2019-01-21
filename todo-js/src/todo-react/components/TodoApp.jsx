@@ -4,6 +4,7 @@ import { withRouter } from 'react-router-dom';
 import TodoList from './TodoList';
 import TodoTabs from './TodoTabs';
 import AddTodoForm from './AddTodoForm';
+import * as todosService from '../services/todos';
 import VisibilityFilters from '../maps/VisibilityFilters';
 
 class App extends React.Component {
@@ -17,6 +18,16 @@ class App extends React.Component {
       visibilityFilter: VisibilityFilters.ALL
     };
   }
+
+  async componentDidMount() {
+    this.fetchTodoList();
+  }
+
+  fetchTodoList = async () => {
+    const todos = await todosService.getTodos();
+
+    this.setState({ todos });
+  };
 
   setEditTodo = todo => {
     this.setState({ editingTodo: todo, isShowingTodoForm: true });
@@ -36,58 +47,31 @@ class App extends React.Component {
     this.setState({ visibilityFilter });
   };
 
-  saveTodo = text => {
-    const todoObject = {
-      text,
-      isCompleted: false
-    };
-
-    const todoExistsAlready = this.state.todos.find(todo => todo.text === text);
-
-    if (todoExistsAlready) {
-      alert('Todo already exists');
-      return;
-    }
-
-    this.setState({ todos: this.state.todos.concat(todoObject) });
+  saveTodo = async text => {
+    await todosService.addTodo(text);
+    this.fetchTodoList();
   };
 
-  editTodo = text => {
-    const updatedTodos = this.state.todos.map(todo => {
-      if (todo.text === this.state.editingTodo.text) {
-        return {
-          ...todo,
-          text
-        };
-      }
+  editTodo = async (id, text) => {
+    await todosService.editTodo(id, { text });
 
-      return todo;
-    });
-
-    this.setState({ todos: updatedTodos });
+    this.fetchTodoList();
   };
 
-  removeTodo = text => {
-    this.setState({ todos: this.state.todos.filter(todo => todo.text !== text) });
+  removeTodo = async id => {
+    await todosService.removeTodo(id);
+
+    this.fetchTodoList();
   };
 
   toggleTodoForm = () => {
     this.setState({ isShowingTodoForm: !this.state.isShowingTodoForm });
   };
 
-  toggleTodoCompletionStatus = text => {
-    let updatedTodos = this.state.todos.map(todo => {
-      if (todo.text !== text) {
-        return todo;
-      }
+  toggleTodoCompletionStatus = async (id, isCompleted) => {
+    await todosService.editTodo(id, { isCompleted });
 
-      return {
-        ...todo,
-        isCompleted: !todo.isCompleted
-      };
-    });
-
-    this.setState({ todos: updatedTodos });
+    this.fetchTodoList();
   };
 
   gotoSomething = () => {

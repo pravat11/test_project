@@ -25,7 +25,7 @@ class AddTodoForm extends React.Component {
   handleSubmit = e => {
     e.preventDefault();
     if (this.props.editingTodo) {
-      this.props.editTodo(this.state.todoText);
+      this.props.editTodo(this.props.editingTodo.id, this.state.todoText);
       this.props.resetEditMode();
     } else {
       this.props.saveTodo(this.state.todoText);

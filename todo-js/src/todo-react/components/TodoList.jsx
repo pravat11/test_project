@@ -22,7 +22,7 @@ const TodoList = props => {
       <ul>
         {!todosToDisplay.length && <li>{emptyStateText}</li>}
         {todosToDisplay.map((todo, index) => {
-          const { text, isCompleted } = todo;
+          const { id, text, isCompleted } = todo;
 
           // Alternative approach although above one is recommended.
           // const text = todo.text;
@@ -37,10 +37,13 @@ const TodoList = props => {
               >
                 {text}
               </span>
-              <span className="action-buttons cross-button" onClick={() => props.removeTodo(text)}>
+              <span className="action-buttons cross-button" onClick={() => props.removeTodo(id)}>
                 &times;
               </span>
-              <span className="action-buttons complete-button" onClick={() => props.toggleTodoCompletionStatus(text)}>
+              <span
+                className="action-buttons complete-button"
+                onClick={() => props.toggleTodoCompletionStatus(id, !isCompleted)}
+              >
                 {isCompleted ? <React.Fragment>&#8630;</React.Fragment> : <React.Fragment>&#10004;</React.Fragment>}
               </span>
             </li>
