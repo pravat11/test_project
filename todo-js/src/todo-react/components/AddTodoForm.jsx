@@ -16,17 +16,16 @@ class AddTodoForm extends React.Component {
   }
 
   handleInputChange = e => {
-    this.props.handlerFromHoc(e);
     this.setState({ todoText: e.target.value });
   };
 
-  handleSubmit = e => {
+  handleSubmit = async e => {
     e.preventDefault();
     if (this.props.editingTodo) {
-      this.props.editTodo(this.props.editingTodo.id, this.state.todoText);
+      await this.props.editTodo(this.props.editingTodo.id, this.state.todoText);
       this.props.resetEditMode();
     } else {
-      this.props.saveTodo(this.state.todoText);
+      await this.props.saveTodo(this.state.todoText);
     }
 
     this.props.toggleTodoForm();
@@ -40,6 +39,7 @@ class AddTodoForm extends React.Component {
         <button className="custom-button cancel-button" onClick={this.props.toggleTodoForm}>
           Cancel
         </button>
+        {this.props.isCreatingTodo && <div className="spinner form-spinner" />}
       </form>
     );
   }

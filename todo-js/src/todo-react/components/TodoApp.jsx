@@ -14,6 +14,9 @@ class App extends React.Component {
     this.state = {
       todos: [],
       editingTodo: null,
+      isActionPending: {},
+      isCreatingTodo: false,
+      isFetchingTodos: false,
       isShowingTodoForm: false,
       visibilityFilter: VisibilityFilters.ALL
     };
@@ -24,9 +27,17 @@ class App extends React.Component {
   }
 
   fetchTodoList = async () => {
-    const todos = await todosService.getTodos();
+    this.setState({ isFetchingTodos: true });
 
-    this.setState({ todos });
+    try {
+      const todos = await todosService.getTodos();
+
+      this.setState({ todos });
+    } catch (err) {
+      console.log(err);
+    } finally {
+      this.setState({ isFetchingTodos: false });
+    }
   };
 
   setEditTodo = todo => {
@@ -48,20 +59,56 @@ class App extends React.Component {
   };
 
   saveTodo = async text => {
-    await todosService.addTodo(text);
-    this.fetchTodoList();
+    this.setState({ isCreatingTodo: true });
+
+    try {
+      const todo = await todosService.addTodo(text);
+
+      this.setState({ todos: [...this.state.todos, todo] });
+    } finally {
+      this.setState({ isCreatingTodo: false });
+    }
   };
 
   editTodo = async (id, text) => {
-    await todosService.editTodo(id, { text });
+    this.setState({ isCreatingTodo: true });
 
-    this.fetchTodoList();
+    try {
+      const editedTodo = await todosService.editTodo(id, { text });
+      const updatedList = this.state.todos.map(todo => {
+        if (todo.id === editedTodo.id) {
+          return editedTodo;
+        }
+
+        return todo;
+      });
+
+      this.setState({ todos: updatedList });
+    } finally {
+      this.setState({ isCreatingTodo: false });
+    }
   };
 
   removeTodo = async id => {
-    await todosService.removeTodo(id);
+    this.setState({
+      isActionPending: {
+        ...this.state.isActionPending,
+        [id]: true
+      }
+    });
 
-    this.fetchTodoList();
+    try {
+      await todosService.removeTodo(id);
+
+      this.setState({ todos: this.state.todos.filter(todo => todo.id !== id) });
+    } finally {
+      this.setState({
+        isActionPending: {
+          ...this.state.isActionPending,
+          [id]: false
+        }
+      });
+    }
   };
 
   toggleTodoForm = () => {
@@ -69,9 +116,32 @@ class App extends React.Component {
   };
 
   toggleTodoCompletionStatus = async (id, isCompleted) => {
-    await todosService.editTodo(id, { isCompleted });
+    this.setState({
+      isActionPending: {
+        ...this.state.isActionPending,
+        [id]: true
+      }
+    });
 
-    this.fetchTodoList();
+    try {
+      const editedTodo = await todosService.editTodo(id, { isCompleted });
+      const updatedList = this.state.todos.map(todo => {
+        if (todo.id === editedTodo.id) {
+          return editedTodo;
+        }
+
+        return todo;
+      });
+
+      this.setState({ todos: updatedList });
+    } finally {
+      this.setState({
+        isActionPending: {
+          ...this.state.isActionPending,
+          [id]: false
+        }
+      });
+    }
   };
 
   render() {
@@ -85,6 +155,7 @@ class App extends React.Component {
             resetEditMode={this.resetEditMode}
             toggleTodoForm={this.toggleTodoForm}
             editingTodo={this.state.editingTodo}
+            isCreatingTodo={this.state.isCreatingTodo}
           />
         ) : (
           <React.Fragment>
@@ -96,6 +167,8 @@ class App extends React.Component {
               todos={this.state.todos}
               removeTodo={this.removeTodo}
               setEditTodo={this.setEditTodo}
+              isActionPending={this.state.isActionPending}
+              isFetchingTodos={this.state.isFetchingTodos}
               visibilityFilter={this.state.visibilityFilter}
               toggleTodoCompletionStatus={this.toggleTodoCompletionStatus}
             />
