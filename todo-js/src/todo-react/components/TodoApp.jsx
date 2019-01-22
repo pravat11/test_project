@@ -74,17 +74,10 @@ class App extends React.Component {
     this.fetchTodoList();
   };
 
-  gotoSomething = () => {
-    this.props.history.push('/something');
-  };
-
   render() {
     return (
       <div className="container">
         <h1>My todos</h1>
-        <button className="navigate-button" onClick={this.gotoSomething}>
-          Goto some other app
-        </button>
         {this.state.isShowingTodoForm ? (
           <AddTodoForm
             saveTodo={this.saveTodo}

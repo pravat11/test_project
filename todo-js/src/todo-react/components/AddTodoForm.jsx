@@ -1,7 +1,5 @@
 import React from 'react';
 
-import withTextState from './hoc/withTextState';
-
 class AddTodoForm extends React.Component {
   constructor() {
     super();
@@ -47,4 +45,4 @@ class AddTodoForm extends React.Component {
   }
 }
 
-export default withTextState(true)('Hello')(AddTodoForm);
+export default AddTodoForm;
