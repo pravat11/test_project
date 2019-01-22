@@ -53,7 +53,7 @@ export async function getTodoById(id) {
 }
 
 export async function updateTodo(id, payload) {
-  const updatedId = await connection('todos')
+  await connection('todos')
     .where({ id })
     .update({
       text: payload.text,
@@ -62,7 +62,7 @@ export async function updateTodo(id, payload) {
 
   const [updatedData] = await connection('todos')
     .select('*')
-    .where({ id: updatedId });
+    .where({ id });
 
   return {
     message: 'Updated todo',
