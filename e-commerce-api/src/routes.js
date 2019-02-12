@@ -1,5 +1,7 @@
 import { Router } from 'express';
 
+import * as usersController from './controllers/usersController';
+
 const routes = Router();
 
 routes.get('/', (req, res, next) => {
@@ -8,5 +10,7 @@ routes.get('/', (req, res, next) => {
     version: '1.0'
   });
 });
+
+routes.get('/user', usersController.addUser);
 
 export default routes;
