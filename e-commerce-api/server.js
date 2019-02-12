@@ -4,7 +4,6 @@ import morgan from 'morgan';
 import express from 'express';
 import bodyParser from 'body-parser';
 
-import './src/models/usersModel';
 import routes from './src/routes';
 import logger from './src/utils/logger';
 import genericErrorHandler from './src/middlewares/errorHandler';
