@@ -3,8 +3,6 @@
 
 /todos-api/node_modules
 /todos-api/combined.log
-/e-commerce-api/node_modules
-/e-commerce-api/combined.log
 # production
 /build
 
