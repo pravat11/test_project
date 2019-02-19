@@ -1,5 +1,6 @@
 import { Router } from 'express';
 
+import { validateLogin, validateNewUser } from './schemas/user';
 import * as usersController from './controllers/usersController';
 
 const routes = Router();
@@ -11,6 +12,8 @@ routes.get('/', (req, res, next) => {
   });
 });
 
-routes.get('/user', usersController.addUser);
+routes.post('/user/create', validateNewUser, usersController.addUser);
+
+routes.post('/user/login', validateLogin, usersController.login);
 
 export default routes;

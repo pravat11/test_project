@@ -5,11 +5,19 @@ import NotFoundError from './NotFoundError';
 import BadRequestError from './BadRequestError';
 
 export default function buildError(err) {
-  if (err.joi) {
+  if (err.isJoi) {
     return {
       code: HttpStatusCodes.BAD_REQUEST,
       message: HttpStatusCodes.getStatusText(HttpStatusCodes.BAD_REQUEST),
       details: err.details
+    };
+  }
+
+  if (err.name === 'UnauthorizedError') {
+    // jwt authentication error
+    return {
+      code: HttpStatusCodes.UNAUTHORIZED,
+      message: HttpStatusCodes.getStatusText(HttpStatusCodes.UNAUTHORIZED)
     };
   }
 
