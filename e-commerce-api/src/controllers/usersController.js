@@ -13,3 +13,7 @@ export function login(req, res, next) {
     .then(data => res.json(data))
     .catch(err => next(err));
 }
+
+export function getMyDetails(req, res, next) {
+  res.json({ username: 'Hello', email: 'hello@123.com' });
+}

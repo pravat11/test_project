@@ -2,9 +2,9 @@ import bcrypt from 'bcrypt';
 
 import mongo from '../mongo';
 import logger from '../utils/logger';
-import BadRequestError from '../utils/BadRequestError';
-import { PASSWORD_SALT_ROUNDS } from '../constants/secrets';
+import { generateAccessToken } from '../utils/jwt';
 import NotFoundError from '../utils/NotFoundError';
+import BadRequestError from '../utils/BadRequestError';
 
 const userSchema = new mongo.Schema({
   username: String,
@@ -23,7 +23,7 @@ export async function addUser(payload) {
   }
 
   try {
-    const hashedPassword = bcrypt.hashSync(password, PASSWORD_SALT_ROUNDS);
+    const hashedPassword = bcrypt.hashSync(password, process.env.PASSWORD_SALT);
     const user = new Users({ username, email, password: hashedPassword });
     await user.save();
 
@@ -50,10 +50,13 @@ export async function login(payload) {
     throw new BadRequestError('Incorrect password');
   }
 
+  const accessToken = generateAccessToken({ username, email: user.email });
+
   return {
     data: {
-      username: user.username,
-      email: user.email
+      accessToken,
+      email: user.email,
+      username: user.username
     },
     message: 'Login successful'
   };

@@ -1,6 +1,9 @@
+import dotenv from 'dotenv';
 import mongoose from 'mongoose';
 
-const URL = 'mongodb://localhost/eCommerceDB';
+dotenv.config();
+
+const URL = `mongodb://${process.env.DB_HOST}/${process.env.DB_NAME}`;
 
 console.log('Connecting to the database....');
 
