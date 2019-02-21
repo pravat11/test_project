@@ -1,0 +1,45 @@
+.title-bar {
+  padding: 20px 10px;
+}
+.cart:after,
+.checkout:after {
+  padding: 0 0 0 15px;
+}
+.title-bar-links {
+  margin-top: 10px;
+}
+.login-form {
+  width: 100%;
+  padding: 0px 10px;
+}
+.navigation {
+  text-align: center;
+}
+.nav-list-container {
+  float: none;
+  display: inline-block;
+}
+.navigation-form-container {
+  float: none;
+  display: inline-block;
+}
+.intro-section {
+  text-align: center;
+}
+.intro-left {
+  float: none;
+}
+.intro-right {
+  float: none;
+  margin: 0 auto;
+  padding: 30px 0px;
+}
+.fifty-percent {
+  font-size: 70px;
+}
+.phone-number {
+  font-size: 20px;
+}
+.email {
+  font-size: 15px;
+}
