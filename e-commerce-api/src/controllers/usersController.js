@@ -17,3 +17,10 @@ export function login(req, res, next) {
 export function getMyDetails(req, res, next) {
   res.json({ username: 'Hello', email: 'hello@123.com' });
 }
+
+export function refreshAccessToken(req, res, next) {
+  usersModel
+    .refreshAccessToken(req.body)
+    .then(data => res.json(data))
+    .catch(err => next(err));
+}

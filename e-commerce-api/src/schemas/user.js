@@ -23,6 +23,13 @@ const loginSchema = Joi.object().keys({
     .required()
 });
 
+const refreshTokenRequestSchema = Joi.object().keys({
+  username: Joi.string()
+    .max(50)
+    .required(),
+  refreshToken: Joi.string().required()
+});
+
 export const validateNewUser = (req, res, next) => {
   validator(req.body, newUserSchema)
     .then(() => next())
@@ -31,6 +38,12 @@ export const validateNewUser = (req, res, next) => {
 
 export const validateLogin = (req, res, next) => {
   validator(req.body, loginSchema)
+    .then(() => next())
+    .catch(err => next(err));
+};
+
+export const validateRefreshTokenRequest = (req, res, next) => {
+  validator(req.body, refreshTokenRequestSchema)
     .then(() => next())
     .catch(err => next(err));
 };

@@ -5,9 +5,17 @@ dotenv.config();
 
 const authenticate = expressJwt({
   secret: process.env.ACCESS_TOKEN_SECRET,
-  getToken: getTokenFromHeader,
-  isRevoked: isRevokedCallback
+  getToken: getTokenFromHeader
 });
+
+export const validateRefreshToken = expressJwt({
+  secret: process.env.REFRESH_TOKEN_SECRET,
+  getToken: getRefreshTokenFromBody
+});
+
+function getRefreshTokenFromBody(req) {
+  return req.body.refreshToken || null;
+}
 
 function getTokenFromHeader(req) {
   if (req.headers.authorization && req.headers.authorization.split(' ')[0] === 'Bearer') {
@@ -15,10 +23,6 @@ function getTokenFromHeader(req) {
   }
 
   return null;
-}
-
-function isRevokedCallback(req, payload, done) {
-  done(null, true);
 }
 
 export default authenticate;
