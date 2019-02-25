@@ -17,7 +17,7 @@ routes.post('/user/create', validateNewUser, usersController.addUser);
 
 routes.post('/user/login', validateLogin, usersController.login);
 
-routes.get('/me', authenticate, usersController.getMyDetails);
+routes.get('/products', authenticate, usersController.getProducts);
 
 routes.post('/token/refresh', validateRefreshTokenRequest, validateRefreshToken, usersController.refreshAccessToken);
 

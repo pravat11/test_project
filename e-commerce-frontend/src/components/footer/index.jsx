@@ -7,13 +7,13 @@ import LatestTweets from './LatestTweets';
 import FooterBottomContents from './FooterBottomContents';
 
 const Footer = () => (
-  <div class="footer">
-    <div class="footer-wrapper clearfix">
-      <div class="left-wrapper">
+  <div className="footer">
+    <div className="footer-wrapper clearfix">
+      <div className="left-wrapper">
         <Navigation />
         <LatestTweets />
       </div>
-      <div class="right-wrapper">
+      <div className="right-wrapper">
         <Newsletter />
         <About />
       </div>

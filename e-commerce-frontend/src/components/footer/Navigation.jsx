@@ -1,11 +1,11 @@
 import React from 'react';
 
 const Navigation = () => (
-  <div class="col4-l-left">
-    <div class="sections-title clearfix">
-      <h2 class="h2-style">Navigation</h2>
+  <div className="col4-l-left">
+    <div className="sections-title clearfix">
+      <h2 className="h2-style">Navigation</h2>
     </div>
-    <ul class="footer-navigation-list">
+    <ul className="footer-navigation-list">
       <li>
         <a href="#">Homepage</a>
       </li>

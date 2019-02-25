@@ -7,7 +7,7 @@ import Offers from './Offers';
 import FeaturedSpecials from './FeaturedSpecials';
 
 const BodyWrapper = () => (
-  <div class="body-wrapper">
+  <div className="body-wrapper">
     <Slider />
     <Intro />
     <FeaturedSpecials />
